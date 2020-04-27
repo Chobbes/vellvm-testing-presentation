@@ -93,14 +93,17 @@ showstringspaces=false}
   the same time, so please feel free to {\bf shout}.
 \end{frame}
 
+\section{Overview of Vellvm}
+
 \begin{frame}
   What is Vellvm?
 
   \begin{itemize}
-  \item Formal semantics for LLVM in Coq
+  \item Formal semantics of LLVM in Coq
     \begin{itemize}
     \item LLVM is an intermediate representation (IR) used by many
       compilers.
+    \item ``universal assembly language''
     \item Kind of a mix of an assembly language and C.
       % TODO: Insert an example of LLVM code here?
     \end{itemize}
@@ -124,6 +127,8 @@ showstringspaces=false}
     Could properties based testing help with these goals in Vellvm?
   \end{itemize}
 \end{frame}
+
+\section{QuickCheck Review}
 
 \begin{frame}
   \frametitle{A Quick(Check) Refresher}
@@ -184,6 +189,8 @@ showstringspaces=false}
   QuickChick can really help you work out the kinks in your
   implementation \emph{AND} specification before trying to prove something.
 \end{frame}
+
+\section{Discussion on testing compilers}
 
 \begin{frame}
   \frametitle{Why test compilers?}
@@ -313,6 +320,8 @@ showstringspaces=false}
   \end{itemize}
 \end{frame}
 
+\section{C Smith}
+
 \begin{frame}
 
   Despite all of these issues tools like C smith seem to do a really
@@ -379,6 +388,8 @@ showstringspaces=false}
   ensure the correctness of the program. It's there to ease
   development.
 \end{frame}
+
+\section{QuickChecking Vellvm}
 
 \begin{frame}
   Why QuickChick in Vellvm?
