@@ -74,9 +74,9 @@ showstringspaces=false}
 \section{Introduction}
 
 \begin{frame}
-  \begin{itemize}
-  \item Use properties based testing to test Vellvm
-  \end{itemize}
+
+  Our goal is to use properties based testing to test Vellvm.
+
 \end{frame}
 
 \begin{frame}
@@ -110,16 +110,30 @@ showstringspaces=false}
   What is Vellvm?
 
   \begin{itemize}
-  \item Semantics for LLVM in Coq
+  \item Formal semantics for LLVM in Coq
+    \begin{itemize}
+    \item LLVM is an intermediate representation (IR) used by many
+      compilers.
+    \item Kind of a mix of an assembly language and C.
+    \end{itemize}
   \item An interpreter for LLVM
-  \item One of the primary goals is to produce verified optimization
-    passes for LLVM
+  \item Some goals:
+    \begin{itemize}
+    \item Accurately reflect the ``real'' LLVM
+    \item Be useful for constructing verified optimization passes
+    \item Maybe have a backend in the long term to be a part of
+      verified compilation chains.
+    \end{itemize}
   \end{itemize}
+
+  \pause
+
+  Could testing help with these goals?
+
 \end{frame}
 
 \begin{frame}
-  So, why test compilers?
-
+  \frametitle{Why test compilers?}
   \begin{itemize}
   \item compilers are complex, with many components
           \begin{itemize}
