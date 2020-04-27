@@ -1,0 +1,201 @@
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{mdframed}
+
+\usepackage{semantic}
+
+%% Colors
+\definecolor{dkred}{rgb}{0.7,0,0}
+\definecolor{dkgreen}{rgb}{0,0.5,0}
+\definecolor{dkblue}{rgb}{0,0.1,0.5}
+\definecolor{dkpurple}{rgb}{0.7,0,0.4}
+\definecolor{olive}{rgb}{0.4, 0.4, 0.0}
+\definecolor{teal}{rgb}{0.0,0.5,0.5}
+\definecolor{azure}{rgb}{0.0, 0.4, .8}
+
+%% Comments 
+\long\def\comment#1{}
+\newcommand{\finish}[1]{\ifdraft\textcolor{gray}{[#1]}\fi}
+\newcommand{\cn}{\ifdraft\iflater\textsuperscript{\textcolor{blue}{[citation needed]}}\fi\fi\xspace}
+\newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
+\newcommand{\leo}[1]{\comm{dkgreen}{LEO}{#1}}
+\newcommand{\mwh}[1]{\comm{blue}{MWH}{#1}}
+\newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
+\newcommand{\calvin}[1]{\comm{dkred}{CALVIN}{#1}}
+\newcommand{\john}[1]{\comm{brown}{JOHN}{#1}}
+
+%% Abbreviations
+    
+\newcommand*{\EG}{e.g.,\xspace}
+\newcommand*{\IE}{i.e.,\xspace}
+\newcommand*{\ETAL}{{et al.}\xspace}
+\newcommand*{\ETC}{etc.\xspace}
+\newcommand*{\AKA}{a.k.a.\xspace}
+
+\newcommand{\Hritcu}{Hri\c{t}cu}
+% Palka
+
+%% TT font with smaller inter-word space
+\newcommand{\lk}[1]{%
+  \texttt{%
+    \fontdimen2\font=2pt   % Shrink default inter-word space
+    #1}}
+\newcommand{\ii}[1]{\ensuremath{\mathit{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+
+\lstset{%
+    xleftmargin=1em,
+    upquote=true,
+    basicstyle=\ttfamily\small\color{syntax_gray}
+  }
+
+%% Haskell Listings
+
+\lstloadlanguages{Haskell}
+
+\lstdefinestyle{haskell}{
+        % language=Haskell,
+        keywordstyle=\color{syntax_pink},
+        stringstyle=\color{syntax_red},
+        commentstyle=\color{syntax_green},
+        numbers=none,
+        numberstyle=\color{black},
+        stepnumber=1,
+        columns=fullflexible,
+        moredelim=**[is][\color{red}]{@}{@},
+}
+
+\lstnewenvironment{vhask}{\lstset{style=haskell}}{}
+\lstnewenvironment{mathhask}{\lstset{style=haskell,mathescape=true}}{}
+\lstnewenvironment{fmathhask}{\lstset{style=haskell,mathescape=true,frame=single}}{}
+
+
+% Colours for syntax highlighting
+  \definecolor{syntax_gray}{rgb}{0.3, 0.3, 0.4} % For strings
+  \definecolor{syntax_red}{rgb}{0.7, 0.0, 0.0} % For strings
+  \definecolor{syntax_pink}{rgb}{0.8, 0.18, 0.38} % For keywords
+  \definecolor{syntax_green}{rgb}{0.15, 0.5, 0.25} % For comments
+  \definecolor{syntax_orange}{rgb}{0.7, 0.4, 0.2} % For comments
+
+\newcommand{\hask}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        linerange={#2}]{#1}}
+
+\newcommand{\hsrc}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        linerange={#2}
+        ]{./code/src/#1}}
+
+\newcommand{\GenQ}{{\ttfamily\small\color{syntax_gray}Gen$^{\tiny\texttt{Q}}$}\xspace}
+\newcommand{\GenB}{{\ttfamily\small\color{syntax_gray}Gen$^{\tiny\texttt{B}}$}\xspace}
+\newcommand{\GenE}{{\ttfamily\small\color{syntax_gray}Gen$^{\tiny\texttt{E}}$}\xspace}
+\newcommand{\GenQred}{{\ttfamily\small\color{red}Gen$^{\tiny\texttt{Q}}$}\xspace}
+\newcommand{\GenH}{{\ttfamily\small\color{syntax_gray}Gen$^{\tiny\texttt{H}}$}\xspace}
+
+\newcommand{\hsrch}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        literate={Gen}{Gen{\textsuperscript{B}~}}{5},
+        linerange={#2}
+        ]{./code/src/#1}}
+
+\newcommand{\hsrcq}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        literate={Gen}{Gen{\textsuperscript{Q}~}}{5},
+        linerange={#2}
+        ]{./code/src/#1}}
+
+\newcommand{\fhsrch}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        frame=single,
+        literate={Gen}{Gen{\textsuperscript{H}~}}{5},
+        linerange={#2}
+        ]{./code/src/#1}}
+
+\newcommand{\fhsrcq}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        frame=single,
+        literate={Gen}{Gen{\textsuperscript{Q}~}}{5},
+        linerange={#2}
+        ]{./code/src/#1}}
+
+\newcommand{\hsrcnomargin}[2]{\lstinputlisting[
+        style=haskell,%
+        rangebeginprefix=\{-\ begin\ ,%
+        rangebeginsuffix=\ -\},%
+        rangeendprefix=\{-\ end\ ,%
+        rangeendsuffix=\ -\},
+        includerangemarker=false,
+        xleftmargin=0em,
+        linerange={#2}
+        ]{./code/src/#1}}
+
+
+  %% Coq Listings
+
+\def\lstlanguagefiles{defManSSR.tex}
+\lstloadlanguages{SSR}
+
+\lstnewenvironment{inlinecode}{\lstset{language=SSR,mathescape=true}}{}
+
+\newcommand{\code}[1]{\lstinputlisting[
+        language=SSR,
+        basicstyle=\ttfamily\small\color{syntax_gray},
+        rangebeginprefix=(*\ begin\ ,%
+        rangebeginsuffix=\ *),%
+        rangeendprefix=(*\ end\ ,%
+        rangeendsuffix=\ *),
+        includerangemarker=false,
+        xleftmargin=1em,
+        linerange={#1},]{./Code.v}}
+\newcommand{\LC}{\lstinline[language=SSR]}
+\renewcommand{\H}{\lstinline[style=haskell]}
+\newcommand{\MH}{\lstinline[style=haskell,mathescape=true]}
+
+\newcommand{\toolname}{Hyena }
+
+% \newsavebox{\fminipagebox}
+% \NewDocumentEnvironment{fminipage}{m O{\fboxsep}}
+%  {\par\kern#2\noindent\begin{lrbox}{\fminipagebox}
+%   \begin{minipage}{#1}\ignorespaces}
+%  {\end{minipage}\end{lrbox}%
+%   \makebox[#1]{%
+%     \kern\dimexpr-\fboxsep-\fboxrule\relax
+%     \fbox{\usebox{\fminipagebox}}%
+%     \kern\dimexpr-\fboxsep-\fboxrule\relax
+%   }\par\kern#2
+%  }
