@@ -387,11 +387,10 @@ showstringspaces=false}
     \item Theorems are hard to state
     \end{itemize}
   \item Proofs are hard.
-  \end{itemize}
-
-  QuickChick, in a verification setting, is arguably not used to
-  ensure the correctness of the program. It's there to ease
-  development.
+  \item Give things a reasonable chance to be correct before verifying.
+  \end{itemize}~\\~\\
+  The point of QuickChick in a verification setting is not necessarily
+  to ensure the program is correct. It's there to ease development.
 \end{frame}
 
 \section{QuickChecking Vellvm}
@@ -404,13 +403,24 @@ showstringspaces=false}
   \item Is this just for us, or is it also for users?
   \item Current idea is to do differential testing with clang just to
     see if we differ.
-  \item Ultimately we want to test this with 
+  \item Ultimately we want to be able provide the generators so users
+    can check ``does my optimization pass preserve the semantics of programs''.
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   So QuickChecking Vellvm seems like a good idea, which means we have
-  to generate programs. Why might that be hard?
+  to generate programs.
+
+  \begin{itemize}
+  \item We know this is non-trivial from the previous discussion
+    relating to C Smith.
+  \item LLVM actually has a huge grammar with lots of little
+    constraints everywhere
+    \begin{itemize}
+    \item We will only cover a subset of a subset for now
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -418,8 +428,32 @@ showstringspaces=false}
 
   \begin{itemize}
   \item What are we testing?
-  \item
+  \item Straight line programs
+    \begin{itemize}
+    \item No backwards edges in the CFG
+    \item Major simplification, but for now we don't have to worry
+      about termination.
+    \end{itemize}
+  \item Only integers for now
+  \item Only check the observable parts of the program
+    \begin{itemize}
+    \item Check the return value, and nothing else
+    \item (We have no I/O anyway)
+    \end{itemize}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Overview of the generators}
+
+  \begin{itemize}
+  \item Various different type generators for slightly different
+    constraints everywhere.
+  \item Expression generator is straightforward.
+  \item Instructions...
+  \item CFG generator
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}
