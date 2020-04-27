@@ -121,7 +121,8 @@ showstringspaces=false}
 \end{frame}
 
 \begin{frame}
-  \frametitle{A Quick Refresher}
+  \frametitle{A Quick(Check) Refresher}
+
   What is properties based testing? (PBT)
 
   \begin{itemize}
@@ -142,6 +143,7 @@ showstringspaces=false}
     \item You can mutate a suite of test data~\cite{10.1145/3360607}
     \item Some mix of the above
     \end{itemize}
+  \item ``What QuickCheck does''
   \end{itemize}
   
   \pause
@@ -150,6 +152,18 @@ showstringspaces=false}
   though we do anticipate mixing in enumeration in order to get
   backtracking will be effective for handling complex constraints.
   % TODO: does this belong here or does it just seem irrelevant.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example of QuickChick}
+
+  % Example of a generator + maybe running QuickChick
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why PBT in a Theorem Prover?}
+  
 \end{frame}
 
 \begin{frame}
@@ -169,18 +183,18 @@ showstringspaces=false}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  What to test with compilers
+% \begin{frame}
+%   What to test with compilers
 
-  % TODO: this slide may not survive. was initially mentioned the
-  % components of compilers (front end, middle end, back end), and that
-  % each of these might involve different testing methods + that we're
-  % not really focusing on testing parsers or anything.
-  %
-  % Though, ultimately we're testing with respect to llc's full chain
-  % of compilation.
+%   % TODO: this slide may not survive. was initially mentioned the
+%   % components of compilers (front end, middle end, back end), and that
+%   % each of these might involve different testing methods + that we're
+%   % not really focusing on testing parsers or anything.
+%   %
+%   % Though, ultimately we're testing with respect to llc's full chain
+%   % of compilation.
   
-\end{frame}
+% \end{frame}
 
 \begin{frame}
   \frametitle{}
@@ -191,7 +205,7 @@ showstringspaces=false}
   % what it does to LLVM, here's how C smith works, here's our rough
   % structure for generating LLVM so far (not as fancy yet).
 
-  How do we know a compiler is working correctly?
+  Lots of ways to test a compiler:
 
   \begin{itemize}
   \item Unit test various functions
@@ -214,7 +228,13 @@ showstringspaces=false}
   % to test just by building up a sample collection of programs.
 
   \pause
+\end{frame}
 
+\begin{frame}
+  \frametitle{Is there a better way?}
+
+  All of these are useful... But...
+  
   \begin{itemize}
   \item Manual unit tests, and suites of test programs can be really
     helpful for testing specific behaviours, but can be really tedious
@@ -225,11 +245,9 @@ showstringspaces=false}
   \item Proofs are obviously very hard to write
     \begin{itemize}
     \item Plus you can only write a proof if your compiler is correct
-      to begin with...
+      to begin with... % TODO: make sure this is connected with QuickChick.
     \end{itemize}
   \end{itemize}
-
-  \pause
 
   Might be nice to automatically generate test cases and run them?
 
