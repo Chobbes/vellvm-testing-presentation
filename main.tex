@@ -1,0 +1,298 @@
+\documentclass{beamer}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{citations.bib}
+
+% http://tex.stackexchange.com/questions/68080/beamer-bibliography-icon
+\setbeamertemplate{bibliography item}{%
+  \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+    {\setbeamertemplate{bibliography item}[book]}
+    {\ifentrytype{online}
+       {\setbeamertemplate{bibliography item}[online]}
+       {\setbeamertemplate{bibliography item}[article]}}%
+  \usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+  {\list{}
+     {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}
+
+% Colours for beamer.
+\setbeamercolor{frametitle}{fg=orange}
+\setbeamertemplate{itemize item}{\color{orange}$\blacksquare$}
+\setbeamertemplate{itemize subitem}{\color{orange}$\blacktriangleright$}
+
+% Colours for syntax highlighting
+\definecolor{syntax_red}{rgb}{0.7, 0.0, 0.0} % For strings
+\definecolor{syntax_green}{rgb}{0.15, 0.5, 0.25} % For comments
+\definecolor{syntax_orange}{rgb}{0.7, 0.4, 0.2} % For keywords
+
+
+% Haskell settings for lstlisting
+\lstset{language=Haskell,
+basicstyle=\ttfamily\tiny,
+keywordstyle=\color{syntax_orange}\bfseries,
+stringstyle=\color{syntax_red},
+commentstyle=\color{syntax_green},
+numbers=none,
+numberstyle=\color{black},
+stepnumber=1,
+frame=single,
+breaklines=true,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+
+\author{
+  Beck, Calvin\\
+  \href{mailto:hobbes@seas.upenn.edu}{hobbes@seas.upenn.edu}
+  \and\\~\\
+  Zakowski, Yannick\\
+  \href{mailto:zakowski@seas.upenn.edu}{zakowski@seas.upenn.edu}
+}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{QuickChecking LLVM}
+  \maketitle
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+  \begin{itemize}
+  \item Use properties based testing to test Vellvm
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Quick Refresher}
+  What is properties based testing? (PBT)
+
+  \begin{itemize}
+  \item Basic idea is to test properties of your program using
+    automatically generated data.
+  \item A property is something like ``the sort function produces
+    sorted lists'' or ``if I insert an element $v$ at key $k$ in a
+    map, I'll get back $v$ if I look up $k$''.
+  \item Test data can be generated in different ways
+    \begin{itemize}
+    \item You can enumerate all test cases
+    \item You can randomly pick the test cases
+    \item You can mutate a suite of test cases (TODO: cite fuzzchick)
+      \pause
+    \item Some mix of the above
+    \end{itemize}
+  \end{itemize}
+  
+  \pause
+  
+  Our focus is mostly on random testing---it's shockingly effective,
+  though we do anticipate mixing in enumeration in order to get
+  backtracking will be effective for handling complex constraints.
+\end{frame}
+
+\begin{frame}
+  What is Vellvm?
+
+  \begin{itemize}
+  \item Semantics for LLVM in Coq
+  \item An interpreter for LLVM
+  \item One of the primary goals is to produce verified optimization
+    passes for LLVM
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  So, why test compilers?
+
+  \begin{itemize}
+  \item compilers are complex, with many components
+          \begin{itemize}
+          \item parsers, lexers, frontends, backends, middlends, oh my.
+          \item lots of things that have to work correctly together.
+          \end{itemize}
+  \item foundational --- nearly all software depends on one in some
+    way or another.
+    \begin{itemize}
+    \item Getting the compiler wrong means any program that was
+      influenced by this compiler could be wrong too.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  What to test with compilers
+
+  % TODO: this slide may not survive. was initially mentioned the
+  % components of compilers (front end, middle end, back end), and that
+  % each of these might involve different testing methods + that we're
+  % not really focusing on testing parsers or anything.
+  %
+  % Though, ultimately we're testing with respect to llc's full chain
+  % of compilation.
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{}
+
+  How do we know a compiler is working correctly?
+
+  \begin{itemize}
+  \item Unit test various functions
+  \item Manually write down test programs, building up a huge library
+    of tests.
+  \item Write down an end-to-end proof of correctness
+    TODO: make sure to link this to QuickCheck
+  \end{itemize}
+
+  How you test may depend on the component(s) of the compiler being
+  tested.
+
+  % Different things may be easier to do with different parts of the
+  % compiler. For instance if the compiler has an internal
+  % representation for an intermediate language, this might be harder
+  % to test just by building up a sample collection of programs.
+
+  \pause
+
+  \begin{itemize}
+  \item Manual unit tests, and suites of test programs can be really
+    helpful for testing specific behaviours, but can be really tedious
+    to create.
+  \item Proofs are obviously very hard to write
+    \begin{itemize}
+    \item Plus you can only write a proof if your compiler is correct
+      to begin with...
+    \end{itemize}
+  \end{itemize}
+
+  \pause
+
+  Might be nice to automatically generate test cases and run them?
+
+\end{frame}
+
+\begin{frame}
+
+  Generating programs seems hard.
+
+  \begin{itemize}
+  \item Lots of constraints
+    \begin{itemize}
+    \item Need appropriate syntax (if generating syntax)
+    \item Needs to typecheck
+    \item Needs to be a program
+    \end{itemize}
+  \item There are many complex, undecidable constraints...
+    \begin{itemize}
+    \item You might want programs to terminate
+    \item Memory safety
+    \item Avoid undefined behaviours
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  Furthermore knowing what a program is seems hard...
+
+  \begin{itemize}
+  \item Many undefined behaviours in languages like C
+  \item The semantics of the language may not be formally specified
+    (or even exist)
+    \begin{itemize}
+    \item Makes it hard to test
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+  Despite all of these issues tools like C smith seem to do a really
+  good job.
+
+  \begin{itemize}
+  \item C smith is a tool for testing C compilers by randomly
+    generating C programs.
+  \item These C programs are run through different C compilers, and
+    the results are compared.
+  \end{itemize}
+
+  C smith has found hundreds of defects in real world C compilers.
+\end{frame}
+
+\begin{frame}
+  Ultimately we want to test Vellvm.
+\end{frame}
+
+\begin{frame}
+  Why QuickChick in Coq? Why not just prove things?
+
+  \begin{itemize}
+  \item Specifications are hard. How do you know you're spec is
+    correct?
+    \begin{itemize}
+    \item Theorems are hard to state
+    \end{itemize}
+  \item Proofs are hard.
+  \end{itemize}
+
+  QuickChick, in a verification setting, is arguably not used to
+  ensure the correctness of the program. It's there to ease
+  development.
+\end{frame}
+
+\begin{frame}
+  Why QuickChick in Vellvm?
+
+  \begin{itemize}
+  \item What do we want to test?
+  \item Is this just for us, or is it also for users?
+  \item Current idea is to do differential testing with clang just to
+    see if we differ.
+  \item Ultimately we want to test this with 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  So QuickChecking Vellvm seems like a good idea, which means we have
+  to generate programs. Why might that be hard?
+\end{frame}
+
+\begin{frame}
+  Current approach. Very limited.
+
+  \begin{itemize}
+  \item What are we testing?
+  \item
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Questions?}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{References}
+
+  \nocite{*}
+  \printbibliography
+\end{frame}
+
+\end{document}
