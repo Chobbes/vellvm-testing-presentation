@@ -79,6 +79,45 @@ showstringspaces=false}
 
   Our goal is to use properties based testing to test Vellvm.
 
+  % Talk will be structured as follows
+  \begin{itemize}
+  \item Brief overview of the Vellvm project
+  \item Quick Review of QuickCheck / QuickChick
+  \item Quick discussion about testing compilers
+  \item C Smith
+  \item Testing Vellvm using QuickChick generators inspired by C Smith
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  What is Vellvm?
+
+  \begin{itemize}
+  \item Formal semantics for LLVM in Coq
+    \begin{itemize}
+    \item LLVM is an intermediate representation (IR) used by many
+      compilers.
+    \item Kind of a mix of an assembly language and C.
+    \end{itemize}
+  \item An interpreter for LLVM
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{What does Vellvm hope to do?}
+
+  \begin{itemize}
+  \item Some goals:
+    \begin{itemize}
+    \item Accurately reflect the ``real'' LLVM
+    \item Be useful for constructing verified optimization passes
+    \item Maybe have a backend in the long term to be a part of
+      verified compilation chains.
+    \end{itemize}
+
+    We want to answer this question:
+    Could properties based testing help with these goals in Vellvm?
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -111,37 +150,6 @@ showstringspaces=false}
   though we do anticipate mixing in enumeration in order to get
   backtracking will be effective for handling complex constraints.
   % TODO: does this belong here or does it just seem irrelevant.
-\end{frame}
-
-\begin{frame}
-  What is Vellvm?
-
-  \begin{itemize}
-  \item Formal semantics for LLVM in Coq
-    \begin{itemize}
-    \item LLVM is an intermediate representation (IR) used by many
-      compilers.
-    \item Kind of a mix of an assembly language and C.
-    \end{itemize}
-  \item An interpreter for LLVM
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{What do we want to do?}
-
-  \begin{itemize}
-  \item Some goals:
-    \begin{itemize}
-    \item Accurately reflect the ``real'' LLVM
-    \item Be useful for constructing verified optimization passes
-    \item Maybe have a backend in the long term to be a part of
-      verified compilation chains.
-    \end{itemize}
-
-    Could properties based testing help with these goals?
-  \end{itemize}
-
 \end{frame}
 
 \begin{frame}
