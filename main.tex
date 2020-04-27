@@ -99,7 +99,7 @@ showstringspaces=false}
   What is Vellvm?
 
   \begin{itemize}
-  \item Formal semantics of LLVM in Coq
+  \item Formal semantics and interpreter for LLVM in Coq
     \begin{itemize}
     \item LLVM is an intermediate representation (IR) used by many
       compilers.
@@ -107,7 +107,6 @@ showstringspaces=false}
     \item Kind of a mix of an assembly language and C.
       % TODO: Insert an example of LLVM code here?
     \end{itemize}
-  \item An interpreter for LLVM
   \end{itemize}
 \end{frame}
 
@@ -123,8 +122,12 @@ showstringspaces=false}
       verified compilation chains.
     \end{itemize}
 
-    We want to answer this question:
-    Could properties based testing help with these goals in Vellvm?
+  \item We want to answer this question:
+    
+    \begin{itemize}
+    \item Could properties based testing help Vellvm achieve these
+      goals?
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -205,12 +208,12 @@ showstringspaces=false}
           \item parsers, lexers, frontends, backends, middlends, oh my.
           \item lots of things that have to work correctly together.
           \end{itemize}
-  \item foundational --- nearly all software depends on one in some
-    way or another.
+  \item foundational --- nearly all software relies on one somewhere.
     \begin{itemize}
     \item Getting the compiler wrong means any program that was
       influenced by this compiler could be wrong too.
     \end{itemize}
+  \item Compiler bugs are hard to spot, and hard to debug.
   \end{itemize}
 \end{frame}
 
@@ -252,8 +255,9 @@ showstringspaces=false}
     % TODO: make sure to link this to QuickCheck
   \end{itemize}
 
-  How you test may depend on the component(s) of the compiler being
-  tested.
+  % Probably a tangent that I don't need.
+  % How you test may depend on the component(s) of the compiler being
+  % tested.
 
   % TODO:
   % Different things may be easier to do with different parts of the
@@ -283,7 +287,8 @@ showstringspaces=false}
     \end{itemize}
   \end{itemize}
 
-  Might be nice to automatically generate test cases and run them?
+  Can we augment these test suites with PBT? Can we automatically
+  generate a large suite of test programs for our compiler?
 
 \end{frame}
 
