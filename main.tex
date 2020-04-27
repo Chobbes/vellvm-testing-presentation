@@ -79,7 +79,8 @@ showstringspaces=false}
 
   Our goal is to use properties based testing to test Vellvm.
 
-  % Talk will be structured as follows
+  This talk will be structured roughly as follows:
+  
   \begin{itemize}
   \item Brief overview of the Vellvm project
   \item Quick Review of QuickCheck / QuickChick
@@ -87,6 +88,9 @@ showstringspaces=false}
   \item C Smith
   \item Testing Vellvm using QuickChick generators inspired by C Smith
   \end{itemize}
+
+  Feel free to ask questions. I'm not sure I can have the chat up at
+  the same time, so please feel free to {\bf shout}.
 \end{frame}
 
 \begin{frame}
@@ -98,6 +102,7 @@ showstringspaces=false}
     \item LLVM is an intermediate representation (IR) used by many
       compilers.
     \item Kind of a mix of an assembly language and C.
+      % TODO: Insert an example of LLVM code here?
     \end{itemize}
   \item An interpreter for LLVM
   \end{itemize}
@@ -126,8 +131,13 @@ showstringspaces=false}
   What is properties based testing? (PBT)
 
   \begin{itemize}
+  \item ``What QuickCheck does''
   \item Basic idea is to test properties of your program using
     automatically generated data.
+    \begin{itemize}
+    \item Nicely separates the property you care about from specific
+      test data.
+    \end{itemize}
   \item A property is something like:
     \begin{itemize}
     \item {\tt is\_sorted (sort l)}
@@ -143,7 +153,6 @@ showstringspaces=false}
     \item You can mutate a suite of test data~\cite{10.1145/3360607}
     \item Some mix of the above
     \end{itemize}
-  \item ``What QuickCheck does''
   \end{itemize}
   
   \pause
@@ -163,11 +172,26 @@ showstringspaces=false}
 
 \begin{frame}
   \frametitle{Why PBT in a Theorem Prover?}
-  
+
+  Why not just prove things?
+
+  \begin{itemize}
+  \item Proving is hard.
+    \pause
+  \item Proving false things is even harder.
+  \end{itemize}
+
+  QuickChick can really help you work out the kinks in your
+  implementation \emph{AND} specification before trying to prove something.
 \end{frame}
 
 \begin{frame}
   \frametitle{Why test compilers?}
+
+  % TODO: Not sure that this slide adds much. maybe cut it.
+  All software should be tested, but there's good reason for compilers
+  to be well tested.
+
   \begin{itemize}
   \item compilers are complex, with many components
           \begin{itemize}
@@ -204,6 +228,9 @@ showstringspaces=false}
   % that? C Smith has found success doing this, maybe we can apply
   % what it does to LLVM, here's how C smith works, here's our rough
   % structure for generating LLVM so far (not as fancy yet).
+  %
+  % I think I have changed the structure enough that I am okay with
+  % this slide now.
 
   Lots of ways to test a compiler:
 
