@@ -88,15 +88,19 @@ showstringspaces=false}
   \begin{itemize}
   \item Basic idea is to test properties of your program using
     automatically generated data.
-  \item A property is something like ``the sort function produces
-    sorted lists'' or ``if I insert an element $v$ at key $k$ in a
-    map, I'll get back $v$ if I look up $k$''.
-  \item Test data can be generated in different ways
+  \item A property is something like:
     \begin{itemize}
-    \item You can enumerate all test cases
-    \item You can randomly pick the test cases
-    \item You can mutate a suite of test cases (TODO: cite fuzzchick)
-      \pause
+    \item {\tt is\_sorted (sort l)}
+    \item {\tt lookup k (insert k v m) == v}
+    \end{itemize}
+    % ``the sort function produces
+    % sorted lists'' or ``if I insert an element $v$ at key $k$ in a
+    % map, I'll get back $v$ if I look up $k$''.
+  \item Must generate ``test data'' to fill in variables ({\tt l}, {\tt k}, {\tt v}, {\tt m}):
+    \begin{itemize}
+    \item Enumerate all possible test data
+    \item Randomly generate test data
+    \item You can mutate a suite of test data~\cite{10.1145/3360607}
     \item Some mix of the above
     \end{itemize}
   \end{itemize}
@@ -106,6 +110,7 @@ showstringspaces=false}
   Our focus is mostly on random testing---it's shockingly effective,
   though we do anticipate mixing in enumeration in order to get
   backtracking will be effective for handling complex constraints.
+  % TODO: does this belong here or does it just seem irrelevant.
 \end{frame}
 
 \begin{frame}
@@ -119,6 +124,13 @@ showstringspaces=false}
     \item Kind of a mix of an assembly language and C.
     \end{itemize}
   \item An interpreter for LLVM
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{What do we want to do?}
+
+  \begin{itemize}
   \item Some goals:
     \begin{itemize}
     \item Accurately reflect the ``real'' LLVM
@@ -126,11 +138,9 @@ showstringspaces=false}
     \item Maybe have a backend in the long term to be a part of
       verified compilation chains.
     \end{itemize}
+
+    Could properties based testing help with these goals?
   \end{itemize}
-
-  \pause
-
-  Could testing help with these goals?
 
 \end{frame}
 
@@ -282,6 +292,21 @@ showstringspaces=false}
 \end{frame}
 
 \begin{frame}
+  \frametitle{Termination and C Smith}
+
+  C Smith just uses timeouts in its test harness.
+
+  \begin{itemize}
+  \item I'm a little unclear whether it just discards timeouts, or
+    actually uses the results.
+  \item Always safe to discard, anyway.
+  \end{itemize}
+
+  Some of these concerns are likely mitigated by generating idiomatic
+  loops, such as loops iterating over array elements, making
+  termination much more likely.
+\end{frame}
+\begin{frame}
   Ultimately we want to test Vellvm.
 \end{frame}
 
@@ -326,6 +351,22 @@ showstringspaces=false}
   \item What are we testing?
   \item
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Shrinking}
+
+  C Smith mentions the use of delta-debugging in order to produce
+  legible bug reports. However, in the paper it's mentioned that this
+  approach can lead to undefined behaviour in C, and so they rely upon
+  compiler warnings and static analysis to deal with this.
+
+  Shrinking in QuickChick if done naively could lead to similar
+  problems with LLVM. A trivial example is shrinking a denominator in
+  a division to 0.
+
+  Vellvm in principle should be able to report if an undefined
+  behaviour occurs during execution, which 
 \end{frame}
 
 \begin{frame}
