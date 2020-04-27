@@ -164,6 +164,12 @@ showstringspaces=false}
 
 \begin{frame}
   \frametitle{}
+  % TODO: I don't really like this slide.
+  % Should be motivating PBT of compilers. Want to get to the point of
+  % "it would be really nice to randomly generate programs, can we do
+  % that? C Smith has found success doing this, maybe we can apply
+  % what it does to LLVM, here's how C smith works, here's our rough
+  % structure for generating LLVM so far (not as fancy yet).
 
   How do we know a compiler is working correctly?
 
@@ -172,12 +178,16 @@ showstringspaces=false}
   \item Manually write down test programs, building up a huge library
     of tests.
   \item Write down an end-to-end proof of correctness
-    TODO: make sure to link this to QuickCheck
+    \begin{itemize}
+    \item CompCert
+    \end{itemize}
+    % TODO: make sure to link this to QuickCheck
   \end{itemize}
 
   How you test may depend on the component(s) of the compiler being
   tested.
 
+  % TODO:
   % Different things may be easier to do with different parts of the
   % compiler. For instance if the compiler has an internal
   % representation for an intermediate language, this might be harder
@@ -189,6 +199,9 @@ showstringspaces=false}
   \item Manual unit tests, and suites of test programs can be really
     helpful for testing specific behaviours, but can be really tedious
     to create.
+    \begin{itemize}
+    \item End up testing with a limited number of cases
+    \end{itemize}
   \item Proofs are obviously very hard to write
     \begin{itemize}
     \item Plus you can only write a proof if your compiler is correct
@@ -227,10 +240,10 @@ showstringspaces=false}
 
   \begin{itemize}
   \item Many undefined behaviours in languages like C
-  \item The semantics of the language may not be formally specified
-    (or even exist)
+  \item Language is ill specified
     \begin{itemize}
-    \item Makes it hard to test
+    \item Semantics most likely informal, if specified at all
+    \item Hard to know *what* to test
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -248,6 +261,22 @@ showstringspaces=false}
   \end{itemize}
 
   C smith has found hundreds of defects in real world C compilers.
+\end{frame}
+
+\begin{frame}
+  What does C smith do, and how can we adapt that to test Vellvm?
+
+  \begin{itemize}
+  \item Production rules based on the grammar of the programming
+    language
+  \item Each production is chosen based on a specific probability
+  \item C Smith filters out choices that are invalid in the current
+    context...
+    \begin{itemize}
+    \item Continue / break can only appear in a loop, etc.
+    \end{itemize}
+  \item 
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
