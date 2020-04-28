@@ -263,8 +263,6 @@ showstringspaces=false}
   % compiler. For instance if the compiler has an internal
   % representation for an intermediate language, this might be harder
   % to test just by building up a sample collection of programs.
-
-  \pause
 \end{frame}
 
 \begin{frame}
@@ -458,6 +456,18 @@ showstringspaces=false}
 
   Vellvm in principle should be able to report if an undefined
   behaviour occurs during execution, which 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Future Work}
+
+  \begin{itemize}
+  \item Underspecified values and nondeterminism are crucial for
+    optimizations in LLVM. Unclear how to compare two programs under
+    this, though. Maybe incorporate Z3?
+  \item Better more complex generator.
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}
