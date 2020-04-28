@@ -182,13 +182,23 @@ showstringspaces=false}
 
   % Example of a generator + maybe running QuickChick
 \begin{lstlisting}[language=SSR]
-Definition gen_tuple : G (nat * bool)
-  := n <- gen_nat;;
-     b <- arbitrary;;
-     ret (n, b)
+Fixpoint genTreeSized {A} (sz : nat) (g : G A) : G (Tree A) :=
+  match sz with
+    | O => ret Leaf
+    | S sz2 => oneOf
+       [ ret Leaf ;
+         ret Node <*> g <*> (genTreeSized sz2 g) <*> (genTreeSized sz2 g)
+       ]
+  end.
 
-Sample gen_tuple.
-[(10, true), (3, true), (6, false)...]
+Fixpoint mirror {A : Type} (t : Tree A) : Tree A :=
+  match t with
+    | Leaf => Leaf
+    | Node x l r => Node x (mirror r) (mirror l)
+  end.
+
+Definition mirrorP (t : Tree nat) := eq_tree (mirror (mirror t)) t.
+QuickChick (forAll (genTreeSized 5 (choose (0,5))) mirrorP).
 \end{lstlisting}
 \end{frame}
 
