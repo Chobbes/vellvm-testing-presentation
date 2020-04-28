@@ -404,8 +404,11 @@ showstringspaces=false}
   \begin{itemize}
   \item What do we want to test?
   \item Is this just for us, or is it also for users?
-  \item Current idea is to do differential testing with clang just to
-    see if we differ.
+  \item Current idea is to do differential testing with clang, and see
+    where we disagree.
+    \begin{itemize}
+    \item Find issues with the spec!
+    \end{itemize}
   \item Ultimately we want to be able provide the generators so users
     can check ``does my optimization pass preserve the semantics of programs''.
   \end{itemize}
@@ -416,8 +419,7 @@ showstringspaces=false}
   to generate programs.
 
   \begin{itemize}
-  \item We know this is non-trivial from the previous discussion
-    relating to Csmith.
+  \item Non-trivial, but we can follow Csmiths footsteps.
   \item LLVM actually has a huge grammar with lots of little
     constraints everywhere
     \begin{itemize}
@@ -427,10 +429,9 @@ showstringspaces=false}
 \end{frame}
 
 \begin{frame}
-  Current approach. Very limited.
+  The generators we have built are currently limited.
 
   \begin{itemize}
-  \item What are we testing?
   \item Straight line programs
     \begin{itemize}
     \item No backwards edges in the CFG
@@ -460,22 +461,6 @@ showstringspaces=false}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shrinking}
-
-  Csmith mentions the use of delta-debugging in order to produce
-  legible bug reports. However, in the paper it's mentioned that this
-  approach can lead to undefined behaviour in C, and so they rely upon
-  compiler warnings and static analysis to deal with this.
-
-  Shrinking in QuickChick if done naively could lead to similar
-  problems with LLVM. A trivial example is shrinking a denominator in
-  a division to 0.
-
-  Vellvm in principle should be able to report if an undefined
-  behaviour occurs during execution, which 
-\end{frame}
-
-\begin{frame}
   \frametitle{Future Work}
 
   \begin{itemize}
@@ -483,6 +468,13 @@ showstringspaces=false}
     optimizations in LLVM. Unclear how to compare two programs under
     this, though. Maybe incorporate Z3?
   \item Better more complex generator.
+  \item Shrinking
+    \begin{itemize}
+    \item Csmith uses delta-debugging, and has to be careful about
+      shrinking causing undefined behaviour...
+    \item We will also have to worry about this, though in principle
+      Vellvm should be able to report if UB occurs during execution.
+    \end{itemize}
   \end{itemize}
 
 \end{frame}
