@@ -85,8 +85,8 @@ showstringspaces=false}
   \item Brief overview of the Vellvm project
   \item Quick Review of QuickCheck / QuickChick
   \item Quick discussion about testing compilers
-  \item C Smith
-  \item Testing Vellvm using QuickChick generators inspired by C Smith
+  \item Csmith
+  \item Testing Vellvm using QuickChick generators inspired by Csmith
   \end{itemize}
 
   Feel free to ask questions. I'm not sure I can have the chat up at
@@ -234,8 +234,8 @@ showstringspaces=false}
   % TODO: I don't really like this slide.
   % Should be motivating PBT of compilers. Want to get to the point of
   % "it would be really nice to randomly generate programs, can we do
-  % that? C Smith has found success doing this, maybe we can apply
-  % what it does to LLVM, here's how C smith works, here's our rough
+  % that? Csmith has found success doing this, maybe we can apply
+  % what it does to LLVM, here's how Csmith works, here's our rough
   % structure for generating LLVM so far (not as fancy yet).
   %
   % I think I have changed the structure enough that I am okay with
@@ -322,48 +322,65 @@ showstringspaces=false}
   \end{itemize}
 \end{frame}
 
-\section{C Smith}
+\section{Csmith}
 
 \begin{frame}
 
-  Despite all of these issues tools like C smith seem to do a really
+  Despite all of these issues, tools like Csmith seem to do a really
   good job.
 
   \begin{itemize}
-  \item C smith is a tool for testing C compilers by randomly
+  \item Csmith is a tool for testing C compilers by randomly
     generating C programs.
   \item These C programs are run through different C compilers, and
     the results are compared.
   \end{itemize}
 
-  C smith has found hundreds of defects in real world C compilers.
+  Csmith has found hundreds of defects in real world C compilers.
 \end{frame}
 
 \begin{frame}
-  What does C smith do, and how can we adapt that to test Vellvm?
+    \frametitle{What does Csmith do?}
+  What does Csmith do, and how can we adapt that to test Vellvm?
 
   \begin{itemize}
   \item Production rules based on the grammar of the programming
     language
   \item Each production is chosen based on a specific probability
-  \item C Smith filters out choices that are invalid in the current
+  \item Csmith filters out choices that are invalid in the current
     context...
     \begin{itemize}
     \item Continue / break can only appear in a loop, etc.
     \end{itemize}
-  \item 
+  \item Csmith generates variables and functions for calls on the fly
+    (or selects from existing ones)
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  TODO: Finish discussion about how C Smith works.
+  \frametitle{Safety and Csmith}
+  \begin{itemize}
+  \item Csmith also uses a collection of safety checks to make sure
+    the generated code is valid, and if not backtracks to generate
+    something else.
+    \begin{itemize}
+    \item Possibly a good use for backtracking in QuickChick
+    \end{itemize}
+  \item Csmith has other safety features...
+    \begin{itemize}
+    \item Uses a library of safe arithmetic operators with checks for
+      overflows, etc.
+    \item Indexes to arrays are only modified in the increment part of
+      {\tt for} loops, forced to be in bounds with modulo, etc.
+    \end{itemize}
+
 \end{frame}
 
 % I think this is irrelevant
 % \begin{frame}
-%   \frametitle{Termination and C Smith}
+%   \frametitle{Termination and Csmith}
 
-%   C Smith just uses timeouts in its test harness.
+%   Csmith just uses timeouts in its test harness.
 
 %   \begin{itemize}
 %   \item I'm a little unclear whether it just discards timeouts, or
@@ -400,7 +417,7 @@ showstringspaces=false}
 
   \begin{itemize}
   \item We know this is non-trivial from the previous discussion
-    relating to C Smith.
+    relating to Csmith.
   \item LLVM actually has a huge grammar with lots of little
     constraints everywhere
     \begin{itemize}
@@ -445,7 +462,7 @@ showstringspaces=false}
 \begin{frame}
   \frametitle{Shrinking}
 
-  C Smith mentions the use of delta-debugging in order to produce
+  Csmith mentions the use of delta-debugging in order to produce
   legible bug reports. However, in the paper it's mentioned that this
   approach can lead to undefined behaviour in C, and so they rely upon
   compiler warnings and static analysis to deal with this.
