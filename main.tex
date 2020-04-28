@@ -480,6 +480,19 @@ showstringspaces=false}
 
 \end{frame}
 
+\begin{frame}{Quickchick in Vellvm: putting back the properties in our property-based checker}
+  \begin{block}{Functional correctness?}
+    (Termination sensitive) equivalence of traces of external calls.\\
+    Challenge: how does one test \emph{equivalence-up-to-tau} of \emph{itrees}?\\
+    Rough idea: like for streams: explore finitely in depth \emph{and} breadth.
+  \end{block}
+
+  \begin{block}{Going further: testing refinement?}
+    IR is a non-deterministic language, and some transformations \emph{reduce} this non-determinism. How does one test this? 
+  \end{block}
+
+\end{frame}
+
 \begin{frame}
   \frametitle{Future Work}
 
