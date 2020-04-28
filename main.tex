@@ -77,7 +77,7 @@ showstringspaces=false}
 
 \begin{frame}
 
-  Our goal is to use properties based testing to test Vellvm.
+  Our goal: using \emph{property-based testing} to ``test'' Vellvm.
 
   This talk will be structured roughly as follows:
   
@@ -96,18 +96,23 @@ showstringspaces=false}
 \section{Overview of Vellvm}
 
 \begin{frame}
-  What is Vellvm?
+  What is llvm?
 
-  \begin{itemize}
-  \item Formal semantics and interpreter for LLVM in Coq
-    \begin{itemize}
+   \begin{itemize}
     \item LLVM is an intermediate representation (IR) used by many
       compilers.
     \item ``universal assembly language''
     \item Kind of a mix of an assembly language and C.
       % TODO: Insert an example of LLVM code here?
-    \end{itemize}
-  \end{itemize}
+   \end{itemize}
+
+   What is Vellvm?
+   \begin{itemize}
+   \item A formal semantics for IR in Coq;
+   \item an interpreter for IR derived from the semantics;
+   \item a family of projects in development aiming to leverage this semantics.
+   \end{itemize}
+
 \end{frame}
 
 \begin{frame}
