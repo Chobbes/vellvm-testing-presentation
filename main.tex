@@ -248,17 +248,24 @@ showstringspaces=false}
   % I think I have changed the structure enough that I am okay with
   % this slide now.
 
-  Lots of ways to test a compiler:
+  Testing compilers is a wild business. One wants to test:
 
+  %% Comment for the talk: we aim for the first, have longer term ambitions for the second, disregard the third.
   \begin{itemize}
-  \item Unit test various functions
-  \item Manually write down test programs, building up a huge library
-    of tests.
-  \item Write down an end-to-end proof of correctness
+  \item global functional correctness;
+  \item individual behavior of transformation passes;
+  \item performances (global, and of transformation passes)
+  \end{itemize}
+
+  And has at its disposition a variety of tools:
+  \begin{itemize}
+  \item unit tests of static analyzers and elementary transformations;
+  \item massive test suites for your compilation chain;
+  \item regression testing of well-established library;
+  \item and everyone's favourite: end-to-end formal proof of correctness...
     \begin{itemize}
-    \item CompCert
+    \item ... but even CompCert went down the tranches and wrote a CMinor interpreter to test its semantics!
     \end{itemize}
-    % TODO: make sure to link this to QuickCheck
   \end{itemize}
 
   % Probably a tangent that I don't need.
