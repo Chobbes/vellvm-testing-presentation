@@ -118,7 +118,7 @@ showstringspaces=false}
     \begin{itemize}
     \item Accurately reflect the ``real'' LLVM
     \item Be useful for constructing verified optimization passes
-    \item Maybe have a backend in the long term to be a part of
+    \item Maybe have a back-end in the long term to be a part of
       verified compilation chains.
     \end{itemize}
 
@@ -156,8 +156,8 @@ showstringspaces=false}
     % map, I'll get back $v$ if I look up $k$''.
   \item Must generate ``test data'' to fill in variables ({\tt l}, {\tt k}, {\tt v}, {\tt m}):
     \begin{itemize}
-    \item Enumerate all possible test data
-    \item Randomly generate test data
+    \item Enumerate all possible values
+    \item Randomly generate values
     \item You can mutate a suite of test data~\cite{10.1145/3360607}
     \item Some mix of the above
     \end{itemize}
@@ -166,8 +166,7 @@ showstringspaces=false}
   \pause
   
   Our focus is mostly on random testing---it's shockingly effective,
-  though we do anticipate mixing in enumeration in order to get
-  backtracking will be effective for handling complex constraints.
+  though we may want to use backtracking in the future.
   % TODO: does this belong here or does it just seem irrelevant.
 \end{frame}
 
@@ -205,7 +204,7 @@ showstringspaces=false}
   \begin{itemize}
   \item compilers are complex, with many components
           \begin{itemize}
-          \item parsers, lexers, frontends, backends, middlends, oh my.
+          \item parsers, lexers, front-ends, back-ends, middle-ends, oh my.
           \item lots of things that have to work correctly together.
           \end{itemize}
   \item foundational --- nearly all software relies on one somewhere.
@@ -362,40 +361,25 @@ showstringspaces=false}
   TODO: Finish discussion about how C Smith works.
 \end{frame}
 
-\begin{frame}
-  \frametitle{Termination and C Smith}
+% I think this is irrelevant
+% \begin{frame}
+%   \frametitle{Termination and C Smith}
 
-  C Smith just uses timeouts in its test harness.
+%   C Smith just uses timeouts in its test harness.
 
-  \begin{itemize}
-  \item I'm a little unclear whether it just discards timeouts, or
-    actually uses the results.
-  \item Always safe to discard, anyway.
-  \end{itemize}
+%   \begin{itemize}
+%   \item I'm a little unclear whether it just discards timeouts, or
+%     actually uses the results.
+%   \item Always safe to discard, anyway.
+%   \end{itemize}
 
-  Some of these concerns are likely mitigated by generating idiomatic
-  loops, such as loops iterating over array elements, making
-  termination much more likely.
-\end{frame}
-\begin{frame}
-  Ultimately we want to test Vellvm.
-\end{frame}
-
-\begin{frame}
-  Why QuickChick in Coq? Why not just prove things?
-
-  \begin{itemize}
-  \item Specifications are hard. How do you know you're spec is
-    correct?
-    \begin{itemize}
-    \item Theorems are hard to state
-    \end{itemize}
-  \item Proofs are hard.
-  \item Give things a reasonable chance to be correct before verifying.
-  \end{itemize}~\\~\\
-  The point of QuickChick in a verification setting is not necessarily
-  to ensure the program is correct. It's there to ease development.
-\end{frame}
+%   Some of these concerns are likely mitigated by generating idiomatic
+%   loops, such as loops iterating over array elements, making
+%   termination much more likely.
+% \end{frame}
+% \begin{frame}
+%   Ultimately we want to test Vellvm.
+% \end{frame}
 
 \section{QuickChecking Vellvm}
 
