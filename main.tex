@@ -413,20 +413,20 @@ showstringspaces=false}
 
 \section{QuickChecking Vellvm}
 
-\begin{frame}
-  Why QuickChick in Vellvm?
+\begin{frame}{QuickChick in Vellvm: why?}
+  
+  We are ``formalizing IR'': but what is IR? A long, informal documentation... getting it right is hard!
 
-  \begin{itemize}
-  \item What do we want to test?
-  \item Is this just for us, or is it also for users?
-  \item Current idea is to do differential testing with clang, and see
+  \begin{block}{Testing for internal development (\emph{us})}
+    Testing functional correctness: the current idea is to do differential testing with clang, and see
     where we disagree.
-    \begin{itemize}
-    \item Find issues with the spec!
-    \end{itemize}
-  \item Ultimately we want to be able provide the generators so users
+  \end{block}
+
+  \begin{block}{Testing for tool developers (also us, but maybe you as well?)}
+    Ultimately we want to be able provide the generators so users
     can check ``does my optimization pass preserve the semantics of programs''.
-  \end{itemize}
+  \end{block}
+
 \end{frame}
 
 \begin{frame}
