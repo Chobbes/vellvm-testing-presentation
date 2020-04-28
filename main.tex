@@ -434,7 +434,8 @@ QuickChick (forAll (genTreeSized 5 (choose (0,5))) mirrorP).
 
 \begin{frame}{QuickChick in Vellvm: why?}
   
-  We are ``formalizing IR'', but what is IR? A long, informal documentation... getting it right is hard!
+  We are ``formalizing IR'', but what is IR? Specified in LangRef, a
+  long and informal document... getting it right is hard!
 
   \begin{block}{Testing for internal development (\emph{us})}
     Testing functional correctness: the current idea is to do differential testing with clang, and see
@@ -614,16 +615,16 @@ Fixpoint gen_terminator
   with gen_blocks (sz : nat) (t : typ) {struct t} : GenLLVM (block typ * list (block typ))
       :=
        bid <- new_block_id;;
-        code <- gen_code;;
-        (term, bs) <- gen_terminator (sz - 1) t;;
-        i <- new_raw_id;;
-        let b := {| blk_id   := bid
-                  ; blk_phis := []
-                  ; blk_code := code
-                  ; blk_term := (IId i, term)
-                  ; blk_comments := None
-                 |} in
-        ret (b, b :: bs).
+       code <- gen_code;;
+       (term, bs) <- gen_terminator (sz - 1) t;;
+       i <- new_raw_id;;
+       let b := {| blk_id   := bid
+                 ; blk_phis := []
+                 ; blk_code := code
+                 ; blk_term := (IId i, term)
+                 ; blk_comments := None
+                |} in
+       ret (b, b :: bs).
 \end{lstlisting}
 \end{frame}
 
