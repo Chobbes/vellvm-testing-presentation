@@ -177,11 +177,19 @@ showstringspaces=false}
   % TODO: does this belong here or does it just seem irrelevant.
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Example of QuickChick}
 
   % Example of a generator + maybe running QuickChick
+\begin{lstlisting}[language=SSR]
+Definition gen_tuple : G (nat * bool)
+  := n <- gen_nat;;
+     b <- arbitrary;;
+     ret (n, b)
 
+Sample gen_tuple.
+[(10, true), (3, true), (6, false)...]
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}
