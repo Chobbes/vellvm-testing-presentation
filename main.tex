@@ -415,7 +415,7 @@ showstringspaces=false}
 
 \begin{frame}{QuickChick in Vellvm: why?}
   
-  We are ``formalizing IR'': but what is IR? A long, informal documentation... getting it right is hard!
+  We are ``formalizing IR'', but what is IR? A long, informal documentation... getting it right is hard!
 
   \begin{block}{Testing for internal development (\emph{us})}
     Testing functional correctness: the current idea is to do differential testing with clang, and see
@@ -429,13 +429,18 @@ showstringspaces=false}
 
 \end{frame}
 
-\begin{frame}
-  So QuickChecking Vellvm seems like a good idea, which means we have
+\begin{frame}{QuickChick in Vellvm: how?}
+  
+  So QuickChicking Vellvm seems like a good idea, which means we have
   to generate programs.
 
+  \begin{alertblock}{Challenges}
+    Ill-typed is useless (easy). Non-SSA is useless (harder). Exhibiting undefined behavior is useless (hard!)
+  \end{alertblock}
+
   \begin{itemize}
-  \item Non-trivial, but we can follow Csmiths footsteps.
-  \item LLVM actually has a huge grammar with lots of little
+  \item Luckily, we can follow Csmiths footsteps.
+  \item Still, LLVM actually has a huge grammar with lots of little
     constraints everywhere
     \begin{itemize}
     \item We will only cover a subset of a subset for now
@@ -443,7 +448,7 @@ showstringspaces=false}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{QuickChick in Vellvm: current status}
   The generators we have built are currently limited.
 
   \begin{itemize}
